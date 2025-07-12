@@ -1,0 +1,633 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Station Omega - Sci-Fi RPG&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Courier New', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #00ff00;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.game-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 800px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 0, 0, 0.8);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #00ff00;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-shadow: 0 0 10px #00ff00;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.story-text {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.2em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: justify;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.choices {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.choice-button {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 255, 0, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #00ff00;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #00ff00;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.1em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Courier New', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.choice-button:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 255, 0, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stats {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-around;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 255, 0, 0.05);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stat {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stat-label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.7;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stat-value {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.5em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.ending {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.4em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.good-ending {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 255, 0, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #00ff00;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bad-ending {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 0, 0, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #ff0000;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #ff4444;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.neutral-ending {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 0, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #ffff00;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #ffff00;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.restart-button {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 100, 255, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #0064ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #0064ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Courier New', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1em;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.restart-button:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 100, 255, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="game-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 class="title"&gt;STATION OMEGA&lt;/h1&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stats"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;HEALTH&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-value" id="health"&gt;100&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;TECH&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-value" id="tech"&gt;50&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;CREW&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-value" id="crew"&gt;75&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="story-text" id="story-text"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Loading...</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="choices" id="choices"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Choices will be populated by JavaScript --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>class StationOmegaGame {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>constructor() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.stats = {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>health: 100,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>tech: 50,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>crew: 75</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.currentScene = 'start';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.gameEnded = false;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.scenes = {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>start: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `The year is 2387. You are Commander Alex Chen, newly assigned to Station Omega, a deep space research facility on the edge of known space. As your shuttle approaches the station, you notice something troubling - the docking bay lights are flickering, and there's no response to your hail.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Your shuttle's AI chirps: "Commander, I'm detecting irregular power fluctuations from the station. Additionally, I'm picking up what appears to be an unknown energy signature from the station's core."</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>What do you do?`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Dock immediately and investigate the station",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'dock_immediate',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { health: -10, crew: +5 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Perform a detailed scan of the station first",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'scan_station',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +10 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Try to contact nearby ships for backup",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'call_backup',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +10, health: -5 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>dock_immediate: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `You decide to dock immediately. The docking clamps engage with a concerning grinding sound. As you step onto the station, emergency lighting casts eerie red shadows down the corridors. The air feels thick and oppressive.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Suddenly, you hear footsteps echoing from the main corridor. A figure emerges from the shadows - it's Dr. Sarah Martinez, the station's chief scientist. She looks panicked and exhausted.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"Commander! Thank God you're here. We've had a containment breach in Lab 7. The quantum experiment... it's created some kind of temporal distortion. Half the crew is trapped in a time loop, and the other half..." she trails off, looking terrified.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Focus on rescuing the trapped crew first",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'rescue_crew',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +15, health: -15 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Head to Lab 7 to shut down the experiment",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'lab_shutdown',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +15, health: -10 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Evacuate the station immediately",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'early_evacuation',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: -20, health: +10 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>scan_station: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `Your detailed scan reveals disturbing information. The station's main reactor is operating at 150% capacity, well beyond safe parameters. More troubling, there are organic compounds in the air that shouldn't exist - some kind of alien organism.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Your AI reports: "Commander, I'm detecting 47 life signs aboard the station, but 12 of them are... different. Their bio-signatures don't match standard human readings. Additionally, there's a massive energy buildup in the station's core that could result in a catastrophic explosion within 6 hours."</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Armed with this knowledge, you dock carefully and enter the station.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Investigate the alien organisms first",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'alien_investigation',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +20, health: -20 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Head straight to the reactor core",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'reactor_core',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +10, health: -15 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Try to gather the uninfected crew members",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'gather_crew',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +20, health: -10 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>call_backup: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `You broadcast on all frequencies, requesting immediate assistance. After several tense minutes, you receive a response from the UEF Cruiser "Intrepid" - they're 4 hours away at maximum warp.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"Station Omega, this is Captain Rodriguez of the Intrepid. We're en route to your position. Be advised, we've been tracking unusual subspace distortions in your sector. Whatever's happening there, it's affecting space-time itself."</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>You dock with the station, knowing help is coming but still hours away. The question is: will the station survive that long?`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Try to stabilize the station until help arrives",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'stabilize_station',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +10, health: -5 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Gather intelligence to help the incoming fleet",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'intelligence_gathering',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +15, crew: +5 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Begin evacuation procedures immediately",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'evacuation_prep',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +15, health: -10 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>rescue_crew: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `You follow Dr. Martinez through the twisting corridors to where the crew is trapped. The temporal distortion has created a bubble where the same 30 seconds repeat endlessly. You can see your crew members going through the same motions over and over.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"I've been working on a solution," Dr. Martinez explains, showing you a modified quantum field generator. "But it's dangerous - one wrong calculation and we could make things worse."</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>As you watch your trapped crew, you notice something else - some of them seem to be aging rapidly with each loop.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Use the quantum field generator to break the loop",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'break_loop',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +25, tech: -15 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Try to enter the loop and rescue them manually",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'enter_loop',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +15, health: -25 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Study the phenomenon more before acting",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'study_loop',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +20, crew: -10 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>lab_shutdown: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `Lab 7 is a nightmare of twisted metal and crackling energy. The quantum experiment has torn a hole in reality itself. Through the rift, you can see... something else. Another dimension where the laws of physics don't apply.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>The experiment's main console is partially melted, but still functional. However, you notice something moving in the shadows - the "other half" of the crew that Dr. Martinez mentioned. They've been changed by exposure to the dimensional rift.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>One of them approaches you. It was once Engineer Blake, but now its eyes glow with an otherworldly light. "Commander," it speaks with a voice like grinding metal, "you cannot stop what has begun. The merger of realities is inevitable."`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Try to communicate with the transformed crew",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'communicate_transformed',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +10, health: -20 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Attempt to shut down the experiment immediately",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'emergency_shutdown',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +15, health: -15 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Fight your way to the console",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'fight_through',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { health: -25, crew: -15 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// Additional scenes for different paths...</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break_loop: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `You activate the quantum field generator. The device hums with dangerous energy as it begins to disrupt the temporal field. Suddenly, the loop breaks with a sound like reality tearing.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Your crew members collapse, freed but disoriented. However, the energy feedback from breaking the loop has destabilized the entire station. Alarms blare as the main reactor begins to overload.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"Commander!" Dr. Martinez shouts over the alarms. "The temporal energy is cascading through the station's systems. We have maybe 20 minutes before total reactor failure!"`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Focus on evacuating everyone immediately",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'mass_evacuation',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +20, health: -10 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Try to stabilize the reactor with your freed crew",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'reactor_stabilization',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +25, health: -20 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Use the temporal energy to power an emergency jump",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'temporal_jump',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +30, crew: -25 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>reactor_stabilization: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `Working together with your freed crew, you manage to contain the cascade failure. The reactor stabilizes, but the station has been permanently damaged. More importantly, you've learned to harness the temporal energy.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Dr. Martinez approaches you with a datapad showing incredible readings. "Commander, what we've learned here... it's revolutionary. We've accidentally discovered a way to manipulate time itself. This could change everything for humanity."</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>But then your sensors detect something approaching - an alien fleet, drawn by the temporal disturbances.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Prepare to share the temporal technology with the aliens",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'share_technology',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +30, crew: +10 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Defend the station and keep the technology secret",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'defend_station',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { health: -30, crew: +20 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Destroy the research to prevent it from falling into wrong hands",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'destroy_research',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: -40, crew: +30 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>share_technology: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `You make the bold decision to share humanity's temporal discovery with the alien fleet. The aliens, known as the Zephyrians, are initially suspicious but recognize the peaceful intent behind your gesture.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>The lead Zephyrian commander, a being of pure energy, communicates through harmonic frequencies: "Your species shows wisdom beyond your years. We have watched many civilizations destroy themselves with such power. Your willingness to share speaks of a mature race."</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>This moment marks the beginning of a new age for humanity - your first contact with a benevolent alien species, and the start of a galactic community built on cooperation rather than conflict.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Establish a permanent research partnership",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'ending_golden_age',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { tech: +50, crew: +50 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>defend_station: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `You choose to defend Station Omega and its revolutionary technology. The battle is fierce, but your crew's determination and the station's defensive systems prove effective. However, the cost is high - many good people are lost in the fighting.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>In the aftermath, you realize the aliens weren't hostile - they were trying to warn you about the dangers of temporal manipulation. Your defensive actions have created a diplomatic incident that will haunt human-alien relations for generations.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>While you've protected the technology, you've also isolated humanity from potential allies in the galaxy.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Accept the consequences of your choices",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'ending_pyrrhic_victory',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: -30 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>destroy_research: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `You make the painful decision to destroy all research related to temporal manipulation. Working with Dr. Martinez, you overload the quantum systems, creating a controlled implosion that erases all traces of the technology.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>The approaching alien fleet, upon seeing your actions, sends a peaceful message: "We honor your wisdom, young species. Power without wisdom destroys civilizations. Your sacrifice shows you are not ready for such knowledge, but you have the character to earn it in time."</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>The aliens share basic technologies with humanity - medical advances, clean energy, and communication systems. While not as revolutionary as temporal manipulation, these gifts advance human civilization by centuries.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Accept the aliens' gifts and build a better future",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'ending_wisdom_path',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +20, health: +30 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mass_evacuation: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `You successfully evacuate the entire crew, but Station Omega is lost in a spectacular explosion that creates a temporary wormhole. The destruction is visible from three star systems away.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>While everyone survives, the loss of the station and its research sets back human scientific advancement by decades. However, your crew's loyalty and the bonds forged in crisis become the foundation for a new type of space exploration - one focused on cooperation and safety rather than reckless discovery.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Years later, you're remembered as the commander who valued lives over science, inspiring a generation of ethical explorers.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>choices: [</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>text: "Reflect on the lessons learned",</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>next: 'ending_ethical_leader',</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>effects: { crew: +40 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// Endings</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ending_golden_age: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `★ GOLDEN AGE ENDING ★</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Your decision to share temporal technology with the Zephyrians ushers in a golden age for humanity. Station Omega becomes the first Interspecies Research Facility, where humans and aliens work together to unlock the mysteries of the universe.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Under your leadership, humanity joins the Galactic Council as an equal partner. Diseases are cured, energy becomes unlimited, and the secrets of time itself are gradually understood through careful cooperation.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>You are remembered as the commander who chose wisdom over fear, cooperation over conflict, and opened the door to humanity's greatest era.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>ending: 'good'</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ending_pyrrhic_victory: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `☠ PYRRHIC VICTORY ENDING ☠</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>You successfully defended Station Omega and preserved its temporal technology, but at a terrible cost. The alien fleet was destroyed, but they were actually trying to help humanity avoid the same mistakes that destroyed their own civilization.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Years later, humanity's reckless use of temporal manipulation creates paradoxes that begin unraveling reality itself. Your "victory" becomes the catalyst for humanity's eventual extinction.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>History remembers you as the commander who won a battle but lost the war for humanity's future.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>ending: 'bad'</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ending_wisdom_path: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `✦ WISDOM PATH ENDING ✦</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>By choosing to destroy the dangerous temporal technology, you demonstrated the wisdom and restraint that impressed the alien visitors. Humanity receives gifts of medical technology, clean energy, and faster-than-light communication.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>While not as dramatic as temporal manipulation, these advances lead to a steady, sustainable improvement in human civilization. War becomes obsolete, diseases are conquered, and humanity slowly earns its place among the galactic community.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>You are remembered as the commander who chose wisdom over power, ensuring humanity's long-term survival and growth.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>ending: 'good'</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ending_ethical_leader: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>text: `♦ ETHICAL LEADER ENDING ♦</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Your unwavering commitment to saving every life, even at the cost of revolutionary scientific discoveries, becomes legendary throughout the galaxy. The Station Omega incident becomes a case study in ethical leadership taught in academies across human space.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>While humanity's scientific advancement is slower, the culture of putting lives before discovery creates a more stable, peaceful society. Your leadership philosophy becomes the foundation for a new era of responsible exploration.</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>You are remembered as the commander who proved that the greatest discoveries are meaningless without the people to appreciate them.`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>ending: 'good'</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.init();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>init() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateDisplay() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const scene = this.scenes[this.currentScene];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('story-text').innerHTML = scene.text;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.updateStats();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.updateChoices(scene.choices);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateStats() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('health').textContent = this.stats.health;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('tech').textContent = this.stats.tech;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('crew').textContent = this.stats.crew;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateChoices(choices) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const choicesContainer = document.getElementById('choices');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>choicesContainer.innerHTML = '';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (this.gameEnded) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const restartButton = document.createElement('button');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>restartButton.className = 'restart-button';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>restartButton.textContent = 'Restart Game';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>restartButton.onclick = () =&gt; this.restart();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>choicesContainer.appendChild(restartButton);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>choices.forEach((choice, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const button = document.createElement('button');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>button.className = 'choice-button';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>button.textContent = choice.text;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>button.onclick = () =&gt; this.makeChoice(choice);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>choicesContainer.appendChild(button);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>makeChoice(choice) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Apply stat changes</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (choice.effects) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Object.keys(choice.effects).forEach(stat =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>this.stats[stat] += choice.effects[stat];</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>this.stats[stat] = Math.max(0, Math.min(100, this.stats[stat])); // Clamp between 0-100</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Check for game over conditions</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (this.stats.health &lt;= 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>this.gameOver('health');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (this.stats.crew &lt;= 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>this.gameOver('crew');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Move to next scene</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.currentScene = choice.next;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Check if this is an ending</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (this.scenes[this.currentScene].ending) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>this.showEnding();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>gameOver(reason) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.gameEnded = true;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let text = '';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (reason === 'health') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>text = `☠ GAME OVER ☠</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Your injuries proved too severe to continue. As consciousness fades, you realize that your bold decisions, while admirable, led to your downfall. The station's mysteries will remain unsolved, and its crew's fate sealed.</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Sometimes courage isn't enough - wisdom and caution have their place in the cold depths of space.`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (reason === 'crew') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>text = `☠ GAME OVER ☠</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>The loss of your crew weighs heavily on your soul. Without their support and expertise, you cannot hope to solve the crisis facing Station Omega. The station drifts silently through space, a monument to the hard choices that leaders must make.</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>A commander is only as strong as the people they lead.`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('story-text').innerHTML = text;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const storyElement = document.querySelector('.story-text');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>storyElement.className = 'story-text ending bad-ending';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.updateChoices([]);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>showEnding() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.gameEnded = true;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const scene = this.scenes[this.currentScene];</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('story-text').innerHTML = scene.text;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const storyElement = document.querySelector('.story-text');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (scene.ending === 'good') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>storyElement.className = 'story-text ending good-ending';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (scene.ending === 'bad') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>storyElement.className = 'story-text ending bad-ending';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>storyElement.className = 'story-text ending neutral-ending';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.updateChoices([]);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>restart() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.stats = { health: 100, tech: 50, crew: 75 };</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.currentScene = 'start';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.gameEnded = false;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const storyElement = document.querySelector('.story-text');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>storyElement.className = 'story-text';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>this.updateDisplay();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Start the game when the page loads</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.addEventListener('load', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>new StationOmegaGame();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
