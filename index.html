@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Station Omega - Sci-Fi RPG</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff00;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .game-container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        .story-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+        
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .choice-button {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .choice-button:hover {
+            background: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 255, 0, 0.05);
+            border-radius: 5px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+        
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .ending {
+            text-align: center;
+            font-size: 1.4em;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .good-ending {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00ff00;
+        }
+        
+        .bad-ending {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            color: #ff4444;
+        }
+        
+        .neutral-ending {
+            background: rgba(255, 255, 0, 0.1);
+            border: 2px solid #ffff00;
+            color: #ffff00;
+        }
+        
+        .restart-button {
+            margin-top: 20px;
+            background: rgba(0, 100, 255, 0.2);
+            border: 2px solid #0064ff;
+            color: #0064ff;
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+        }
+        
+        .restart-button:hover {
+            background: rgba(0, 100, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="title">STATION OMEGA</h1>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">HEALTH</div>
+                <div class="stat-value" id="health">100</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">TECH</div>
+                <div class="stat-value" id="tech">50</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">CREW</div>
+                <div class="stat-value" id="crew">75</div>
+            </div>
+        </div>
+        
+        <div class="story-text" id="story-text">
+            Loading...
+        </div>
+        
+        <div class="choices" id="choices">
+            <!-- Choices will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        class StationOmegaGame {
+            constructor() {
+                this.stats = {
+                    health: 100,
+                    tech: 50,
+                    crew: 75
+                };
+                
+                this.currentScene = 'start';
+                this.gameEnded = false;
+                
+                this.scenes = {
+                    start: {
+                        text: `The year is 2387. You are Commander Alex Chen, newly assigned to Station Omega, a deep space research facility on the edge of known space. As your shuttle approaches the station, you notice something troubling - the docking bay lights are flickering, and there's no response to your hail.
+                        
+                        Your shuttle's AI chirps: "Commander, I'm detecting irregular power fluctuations from the station. Additionally, I'm picking up what appears to be an unknown energy signature from the station's core."
+                        
+                        What do you do?`,
+                        choices: [
+                            {
+                                text: "Dock immediately and investigate the station",
+                                next: 'dock_immediate',
+                                effects: { health: -10, crew: +5 }
+                            },
+                            {
+                                text: "Perform a detailed scan of the station first",
+                                next: 'scan_station',
+                                effects: { tech: +10 }
+                            },
+                            {
+                                text: "Try to contact nearby ships for backup",
+                                next: 'call_backup',
+                                effects: { crew: +10, health: -5 }
+                            }
+                        ]
+                    },
+                    
+                    dock_immediate: {
+                        text: `You decide to dock immediately. The docking clamps engage with a concerning grinding sound. As you step onto the station, emergency lighting casts eerie red shadows down the corridors. The air feels thick and oppressive.
+                        
+                        Suddenly, you hear footsteps echoing from the main corridor. A figure emerges from the shadows - it's Dr. Sarah Martinez, the station's chief scientist. She looks panicked and exhausted.
+                        
+                        "Commander! Thank God you're here. We've had a containment breach in Lab 7. The quantum experiment... it's created some kind of temporal distortion. Half the crew is trapped in a time loop, and the other half..." she trails off, looking terrified.`,
+                        choices: [
+                            {
+                                text: "Focus on rescuing the trapped crew first",
+                                next: 'rescue_crew',
+                                effects: { crew: +15, health: -15 }
+                            },
+                            {
+                                text: "Head to Lab 7 to shut down the experiment",
+                                next: 'lab_shutdown',
+                                effects: { tech: +15, health: -10 }
+                            },
+                            {
+                                text: "Evacuate the station immediately",
+                                next: 'early_evacuation',
+                                effects: { crew: -20, health: +10 }
+                            }
+                        ]
+                    },
+                    
+                    scan_station: {
+                        text: `Your detailed scan reveals disturbing information. The station's main reactor is operating at 150% capacity, well beyond safe parameters. More troubling, there are organic compounds in the air that shouldn't exist - some kind of alien organism.
+                        
+                        Your AI reports: "Commander, I'm detecting 47 life signs aboard the station, but 12 of them are... different. Their bio-signatures don't match standard human readings. Additionally, there's a massive energy buildup in the station's core that could result in a catastrophic explosion within 6 hours."
+                        
+                        Armed with this knowledge, you dock carefully and enter the station.`,
+                        choices: [
+                            {
+                                text: "Investigate the alien organisms first",
+                                next: 'alien_investigation',
+                                effects: { tech: +20, health: -20 }
+                            },
+                            {
+                                text: "Head straight to the reactor core",
+                                next: 'reactor_core',
+                                effects: { tech: +10, health: -15 }
+                            },
+                            {
+                                text: "Try to gather the uninfected crew members",
+                                next: 'gather_crew',
+                                effects: { crew: +20, health: -10 }
+                            }
+                        ]
+                    },
+                    
+                    call_backup: {
+                        text: `You broadcast on all frequencies, requesting immediate assistance. After several tense minutes, you receive a response from the UEF Cruiser "Intrepid" - they're 4 hours away at maximum warp.
+                        
+                        "Station Omega, this is Captain Rodriguez of the Intrepid. We're en route to your position. Be advised, we've been tracking unusual subspace distortions in your sector. Whatever's happening there, it's affecting space-time itself."
+                        
+                        You dock with the station, knowing help is coming but still hours away. The question is: will the station survive that long?`,
+                        choices: [
+                            {
+                                text: "Try to stabilize the station until help arrives",
+                                next: 'stabilize_station',
+                                effects: { tech: +10, health: -5 }
+                            },
+                            {
+                                text: "Gather intelligence to help the incoming fleet",
+                                next: 'intelligence_gathering',
+                                effects: { tech: +15, crew: +5 }
+                            },
+                            {
+                                text: "Begin evacuation procedures immediately",
+                                next: 'evacuation_prep',
+                                effects: { crew: +15, health: -10 }
+                            }
+                        ]
+                    },
+                    
+                    rescue_crew: {
+                        text: `You follow Dr. Martinez through the twisting corridors to where the crew is trapped. The temporal distortion has created a bubble where the same 30 seconds repeat endlessly. You can see your crew members going through the same motions over and over.
+                        
+                        "I've been working on a solution," Dr. Martinez explains, showing you a modified quantum field generator. "But it's dangerous - one wrong calculation and we could make things worse."
+                        
+                        As you watch your trapped crew, you notice something else - some of them seem to be aging rapidly with each loop.`,
+                        choices: [
+                            {
+                                text: "Use the quantum field generator to break the loop",
+                                next: 'break_loop',
+                                effects: { crew: +25, tech: -15 }
+                            },
+                            {
+                                text: "Try to enter the loop and rescue them manually",
+                                next: 'enter_loop',
+                                effects: { crew: +15, health: -25 }
+                            },
+                            {
+                                text: "Study the phenomenon more before acting",
+                                next: 'study_loop',
+                                effects: { tech: +20, crew: -10 }
+                            }
+                        ]
+                    },
+                    
+                    lab_shutdown: {
+                        text: `Lab 7 is a nightmare of twisted metal and crackling energy. The quantum experiment has torn a hole in reality itself. Through the rift, you can see... something else. Another dimension where the laws of physics don't apply.
+                        
+                        The experiment's main console is partially melted, but still functional. However, you notice something moving in the shadows - the "other half" of the crew that Dr. Martinez mentioned. They've been changed by exposure to the dimensional rift.
+                        
+                        One of them approaches you. It was once Engineer Blake, but now its eyes glow with an otherworldly light. "Commander," it speaks with a voice like grinding metal, "you cannot stop what has begun. The merger of realities is inevitable."`,
+                        choices: [
+                            {
+                                text: "Try to communicate with the transformed crew",
+                                next: 'communicate_transformed',
+                                effects: { crew: +10, health: -20 }
+                            },
+                            {
+                                text: "Attempt to shut down the experiment immediately",
+                                next: 'emergency_shutdown',
+                                effects: { tech: +15, health: -15 }
+                            },
+                            {
+                                text: "Fight your way to the console",
+                                next: 'fight_through',
+                                effects: { health: -25, crew: -15 }
+                            }
+                        ]
+                    },
+                    
+                    // Additional scenes for different paths...
+                    break_loop: {
+                        text: `You activate the quantum field generator. The device hums with dangerous energy as it begins to disrupt the temporal field. Suddenly, the loop breaks with a sound like reality tearing.
+                        
+                        Your crew members collapse, freed but disoriented. However, the energy feedback from breaking the loop has destabilized the entire station. Alarms blare as the main reactor begins to overload.
+                        
+                        "Commander!" Dr. Martinez shouts over the alarms. "The temporal energy is cascading through the station's systems. We have maybe 20 minutes before total reactor failure!"`,
+                        choices: [
+                            {
+                                text: "Focus on evacuating everyone immediately",
+                                next: 'mass_evacuation',
+                                effects: { crew: +20, health: -10 }
+                            },
+                            {
+                                text: "Try to stabilize the reactor with your freed crew",
+                                next: 'reactor_stabilization',
+                                effects: { tech: +25, health: -20 }
+                            },
+                            {
+                                text: "Use the temporal energy to power an emergency jump",
+                                next: 'temporal_jump',
+                                effects: { tech: +30, crew: -25 }
+                            }
+                        ]
+                    },
+                    
+                    reactor_stabilization: {
+                        text: `Working together with your freed crew, you manage to contain the cascade failure. The reactor stabilizes, but the station has been permanently damaged. More importantly, you've learned to harness the temporal energy.
+                        
+                        Dr. Martinez approaches you with a datapad showing incredible readings. "Commander, what we've learned here... it's revolutionary. We've accidentally discovered a way to manipulate time itself. This could change everything for humanity."
+                        
+                        But then your sensors detect something approaching - an alien fleet, drawn by the temporal disturbances.`,
+                        choices: [
+                            {
+                                text: "Prepare to share the temporal technology with the aliens",
+                                next: 'share_technology',
+                                effects: { tech: +30, crew: +10 }
+                            },
+                            {
+                                text: "Defend the station and keep the technology secret",
+                                next: 'defend_station',
+                                effects: { health: -30, crew: +20 }
+                            },
+                            {
+                                text: "Destroy the research to prevent it from falling into wrong hands",
+                                next: 'destroy_research',
+                                effects: { tech: -40, crew: +30 }
+                            }
+                        ]
+                    },
+                    
+                    share_technology: {
+                        text: `You make the bold decision to share humanity's temporal discovery with the alien fleet. The aliens, known as the Zephyrians, are initially suspicious but recognize the peaceful intent behind your gesture.
+                        
+                        The lead Zephyrian commander, a being of pure energy, communicates through harmonic frequencies: "Your species shows wisdom beyond your years. We have watched many civilizations destroy themselves with such power. Your willingness to share speaks of a mature race."
+                        
+                        This moment marks the beginning of a new age for humanity - your first contact with a benevolent alien species, and the start of a galactic community built on cooperation rather than conflict.`,
+                        choices: [
+                            {
+                                text: "Establish a permanent research partnership",
+                                next: 'ending_golden_age',
+                                effects: { tech: +50, crew: +50 }
+                            }
+                        ]
+                    },
+                    
+                    defend_station: {
+                        text: `You choose to defend Station Omega and its revolutionary technology. The battle is fierce, but your crew's determination and the station's defensive systems prove effective. However, the cost is high - many good people are lost in the fighting.
+                        
+                        In the aftermath, you realize the aliens weren't hostile - they were trying to warn you about the dangers of temporal manipulation. Your defensive actions have created a diplomatic incident that will haunt human-alien relations for generations.
+                        
+                        While you've protected the technology, you've also isolated humanity from potential allies in the galaxy.`,
+                        choices: [
+                            {
+                                text: "Accept the consequences of your choices",
+                                next: 'ending_pyrrhic_victory',
+                                effects: { crew: -30 }
+                            }
+                        ]
+                    },
+                    
+                    destroy_research: {
+                        text: `You make the painful decision to destroy all research related to temporal manipulation. Working with Dr. Martinez, you overload the quantum systems, creating a controlled implosion that erases all traces of the technology.
+                        
+                        The approaching alien fleet, upon seeing your actions, sends a peaceful message: "We honor your wisdom, young species. Power without wisdom destroys civilizations. Your sacrifice shows you are not ready for such knowledge, but you have the character to earn it in time."
+                        
+                        The aliens share basic technologies with humanity - medical advances, clean energy, and communication systems. While not as revolutionary as temporal manipulation, these gifts advance human civilization by centuries.`,
+                        choices: [
+                            {
+                                text: "Accept the aliens' gifts and build a better future",
+                                next: 'ending_wisdom_path',
+                                effects: { crew: +20, health: +30 }
+                            }
+                        ]
+                    },
+                    
+                    mass_evacuation: {
+                        text: `You successfully evacuate the entire crew, but Station Omega is lost in a spectacular explosion that creates a temporary wormhole. The destruction is visible from three star systems away.
+                        
+                        While everyone survives, the loss of the station and its research sets back human scientific advancement by decades. However, your crew's loyalty and the bonds forged in crisis become the foundation for a new type of space exploration - one focused on cooperation and safety rather than reckless discovery.
+                        
+                        Years later, you're remembered as the commander who valued lives over science, inspiring a generation of ethical explorers.`,
+                        choices: [
+                            {
+                                text: "Reflect on the lessons learned",
+                                next: 'ending_ethical_leader',
+                                effects: { crew: +40 }
+                            }
+                        ]
+                    },
+                    
+                    // Endings
+                    ending_golden_age: {
+                        text: `★ GOLDEN AGE ENDING ★
+                        
+                        Your decision to share temporal technology with the Zephyrians ushers in a golden age for humanity. Station Omega becomes the first Interspecies Research Facility, where humans and aliens work together to unlock the mysteries of the universe.
+                        
+                        Under your leadership, humanity joins the Galactic Council as an equal partner. Diseases are cured, energy becomes unlimited, and the secrets of time itself are gradually understood through careful cooperation.
+                        
+                        You are remembered as the commander who chose wisdom over fear, cooperation over conflict, and opened the door to humanity's greatest era.`,
+                        ending: 'good'
+                    },
+                    
+                    ending_pyrrhic_victory: {
+                        text: `☠ PYRRHIC VICTORY ENDING ☠
+                        
+                        You successfully defended Station Omega and preserved its temporal technology, but at a terrible cost. The alien fleet was destroyed, but they were actually trying to help humanity avoid the same mistakes that destroyed their own civilization.
+                        
+                        Years later, humanity's reckless use of temporal manipulation creates paradoxes that begin unraveling reality itself. Your "victory" becomes the catalyst for humanity's eventual extinction.
+                        
+                        History remembers you as the commander who won a battle but lost the war for humanity's future.`,
+                        ending: 'bad'
+                    },
+                    
+                    ending_wisdom_path: {
+                        text: `✦ WISDOM PATH ENDING ✦
+                        
+                        By choosing to destroy the dangerous temporal technology, you demonstrated the wisdom and restraint that impressed the alien visitors. Humanity receives gifts of medical technology, clean energy, and faster-than-light communication.
+                        
+                        While not as dramatic as temporal manipulation, these advances lead to a steady, sustainable improvement in human civilization. War becomes obsolete, diseases are conquered, and humanity slowly earns its place among the galactic community.
+                        
+                        You are remembered as the commander who chose wisdom over power, ensuring humanity's long-term survival and growth.`,
+                        ending: 'good'
+                    },
+                    
+                    ending_ethical_leader: {
+                        text: `♦ ETHICAL LEADER ENDING ♦
+                        
+                        Your unwavering commitment to saving every life, even at the cost of revolutionary scientific discoveries, becomes legendary throughout the galaxy. The Station Omega incident becomes a case study in ethical leadership taught in academies across human space.
+                        
+                        While humanity's scientific advancement is slower, the culture of putting lives before discovery creates a more stable, peaceful society. Your leadership philosophy becomes the foundation for a new era of responsible exploration.
+                        
+                        You are remembered as the commander who proved that the greatest discoveries are meaningless without the people to appreciate them.`,
+                        ending: 'good'
+                    }
+                };
+                
+                this.init();
+            }
+            
+            init() {
+                this.updateDisplay();
+            }
+            
+            updateDisplay() {
+                const scene = this.scenes[this.currentScene];
+                document.getElementById('story-text').innerHTML = scene.text;
+                
+                this.updateStats();
+                this.updateChoices(scene.choices);
+            }
+            
+            updateStats() {
+                document.getElementById('health').textContent = this.stats.health;
+                document.getElementById('tech').textContent = this.stats.tech;
+                document.getElementById('crew').textContent = this.stats.crew;
+            }
+            
+            updateChoices(choices) {
+                const choicesContainer = document.getElementById('choices');
+                choicesContainer.innerHTML = '';
+                
+                if (this.gameEnded) {
+                    const restartButton = document.createElement('button');
+                    restartButton.className = 'restart-button';
+                    restartButton.textContent = 'Restart Game';
+                    restartButton.onclick = () => this.restart();
+                    choicesContainer.appendChild(restartButton);
+                    return;
+                }
+                
+                choices.forEach((choice, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'choice-button';
+                    button.textContent = choice.text;
+                    button.onclick = () => this.makeChoice(choice);
+                    choicesContainer.appendChild(button);
+                });
+            }
+            
+            makeChoice(choice) {
+                // Apply stat changes
+                if (choice.effects) {
+                    Object.keys(choice.effects).forEach(stat => {
+                        this.stats[stat] += choice.effects[stat];
+                        this.stats[stat] = Math.max(0, Math.min(100, this.stats[stat])); // Clamp between 0-100
+                    });
+                }
+                
+                // Check for game over conditions
+                if (this.stats.health <= 0) {
+                    this.gameOver('health');
+                    return;
+                }
+                
+                if (this.stats.crew <= 0) {
+                    this.gameOver('crew');
+                    return;
+                }
+                
+                // Move to next scene
+                this.currentScene = choice.next;
+                
+                // Check if this is an ending
+                if (this.scenes[this.currentScene].ending) {
+                    this.showEnding();
+                    return;
+                }
+                
+                this.updateDisplay();
+            }
+            
+            gameOver(reason) {
+                this.gameEnded = true;
+                let text = '';
+                
+                if (reason === 'health') {
+                    text = `☠ GAME OVER ☠
+                    
+                    Your injuries proved too severe to continue. As consciousness fades, you realize that your bold decisions, while admirable, led to your downfall. The station's mysteries will remain unsolved, and its crew's fate sealed.
+                    
+                    Sometimes courage isn't enough - wisdom and caution have their place in the cold depths of space.`;
+                } else if (reason === 'crew') {
+                    text = `☠ GAME OVER ☠
+                    
+                    The loss of your crew weighs heavily on your soul. Without their support and expertise, you cannot hope to solve the crisis facing Station Omega. The station drifts silently through space, a monument to the hard choices that leaders must make.
+                    
+                    A commander is only as strong as the people they lead.`;
+                }
+                
+                document.getElementById('story-text').innerHTML = text;
+                const storyElement = document.querySelector('.story-text');
+                storyElement.className = 'story-text ending bad-ending';
+                
+                this.updateChoices([]);
+            }
+            
+            showEnding() {
+                this.gameEnded = true;
+                const scene = this.scenes[this.currentScene];
+                
+                document.getElementById('story-text').innerHTML = scene.text;
+                const storyElement = document.querySelector('.story-text');
+                
+                if (scene.ending === 'good') {
+                    storyElement.className = 'story-text ending good-ending';
+                } else if (scene.ending === 'bad') {
+                    storyElement.className = 'story-text ending bad-ending';
+                } else {
+                    storyElement.className = 'story-text ending neutral-ending';
+                }
+                
+                this.updateChoices([]);
+            }
+            
+            restart() {
+                this.stats = { health: 100, tech: 50, crew: 75 };
+                this.currentScene = 'start';
+                this.gameEnded = false;
+                
+                const storyElement = document.querySelector('.story-text');
+                storyElement.className = 'story-text';
+                
+                this.updateDisplay();
+            }
+        }
+        
+        // Start the game when the page loads
+        window.addEventListener('load', () => {
+            new StationOmegaGame();
+        });
+    </script>
+</body>
+</html>
